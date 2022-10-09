@@ -39,15 +39,18 @@ def on_message(msg: TGMessage):
 def on_command(chat: TGChat, command: str, args: str):
     res_msg = None
 
-    # start does not requires previous authentication
+    # 'start' does not requires previous authentication
     if command == 'start':
         res_msg = setup_cmds.start(chat)
 
-    # TODO Check for chat authorization in a try, except
-    else:
-
+    # Check for chat authorization
+    elif cache_svc.is_tg_chat_authorized(chat.id):
         if command == 'ping':
             res_msg = setup_cmds.ping(chat)
+
+    # Ask for passphrase again
+    else:
+        res_msg = setup_cmds.on_reauthentication_required(chat.id)
 
     if res_msg:
         tg_api.sendMessage(res_msg)

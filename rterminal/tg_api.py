@@ -12,7 +12,7 @@ def getMe():
 
 def getUpdates(offset: int):
     try:
-        logger.debug('Retrieving updates from telegram API')
+        # logger.debug('Retrieving updates from telegram API')
         res = requests.get(f'{ _BASE_URL }/getUpdates', {'offset': offset})
 
         res.raise_for_status()

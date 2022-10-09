@@ -20,6 +20,10 @@ def redis_port():
     return os.getenv('REDIS_PORT')
 
 
+def session_expire() -> int:
+    return int(os.getenv('SESSION_EXPIRE', 1800))
+
+
 def runtime_path():
     return os.getenv('RUNTIME_PATH')
 

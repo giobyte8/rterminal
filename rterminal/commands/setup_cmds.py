@@ -22,14 +22,18 @@ def start(chat: TGChat) -> TGResponseMsg:
 
 
 def on_reauthentication_required(chat_id: int) -> TGResponseMsg:
-    pass
+    txt = 'Hey! it\'s been a while.\nWhat\'s the passphrase again?'
+    cache_svc.set_conversation_status(
+        chat_id,
+        ConversationStatus.WAITING_USER_PASSPHRASE
+    )
+    return TGResponseMsg(chat_id=chat_id, text=txt)
 
 
 def on_user_passphrase(msg: TGMessage) -> TGResponseMsg:
     cache_svc.set_conversation_status(msg.chat.id, ConversationStatus.STANDBY)
 
     if auth_svc.checkpw(msg.text):
-        # TODO Add expiration policy
         cache_svc.add_tg_authorized_chat(msg.chat.id)
         return TGResponseMsg(
             chat_id=msg.chat.id,
@@ -40,4 +44,4 @@ def on_user_passphrase(msg: TGMessage) -> TGResponseMsg:
 
 
 def ping(chat: TGChat):
-    pass
+    return TGResponseMsg(chat_id=chat.id, text='Hey! I\'m here')
