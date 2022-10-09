@@ -1,7 +1,6 @@
 import os
 import sys
 
-
 # If package was not imported from other module
 # and package has not been yet installed
 if not __package__ and not hasattr(sys, "frozen"):
@@ -10,8 +9,8 @@ if not __package__ and not hasattr(sys, "frozen"):
     )
     sys.path.insert(0, os.path.realpath(rterminal_root))
 
-from rterminal import tg_api
+from rterminal.services import updates_listener
 
 
 if __name__ == '__main__':
-    print(tg_api.getUpdates())
+    updates_listener.start()

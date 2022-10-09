@@ -1,0 +1,10 @@
+version: '3.1'
+name: rterminal
+
+services:
+  redis:
+    image: redis:6.2.6-alpine
+    container_name: rt_redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'

@@ -2,8 +2,8 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 
-import rterminal.config as cfg
-from rterminal import futils
+import rterminal.utils.config as cfg
+from rterminal.utils import futils
 
 _LOGGER_NAME = 'rterminal'
 _LOG_FILENAME = f'{_LOGGER_NAME}.log'
