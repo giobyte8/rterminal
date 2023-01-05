@@ -1,3 +1,4 @@
+import asyncio
 import os
 import sys
 
@@ -9,8 +10,12 @@ if not __package__ and not hasattr(sys, "frozen"):
     )
     sys.path.insert(0, os.path.realpath(rterminal_root))
 
-from rterminal.services import updates_listener
+from rterminal.listeners import tg_updates_listener
+
+
+async def main():
+    await tg_updates_listener.start()
 
 
 if __name__ == '__main__':
-    updates_listener.start()
+    asyncio.run(main())
