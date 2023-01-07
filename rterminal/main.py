@@ -10,11 +10,17 @@ if not __package__ and not hasattr(sys, "frozen"):
     )
     sys.path.insert(0, os.path.realpath(rterminal_root))
 
-from rterminal.listeners import tg_updates_listener
+from rterminal.listeners import (
+    tg_updates_listener,
+    notifications_listener
+)
 
 
 async def main():
-    await tg_updates_listener.start()
+    await asyncio.gather(
+        tg_updates_listener.start(),
+        notifications_listener.start()
+    )
 
 
 if __name__ == '__main__':

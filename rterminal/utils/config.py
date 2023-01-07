@@ -20,6 +20,22 @@ def redis_port():
     return os.getenv('REDIS_PORT')
 
 
+def rabbitmq_host():
+    return os.getenv('RABBITMQ_HOST')
+
+
+def rabbitmq_port():
+    return os.getenv('RABBITMQ_PORT')
+
+
+def rabbitmq_user():
+    return os.getenv('RABBITMQ_USER')
+
+
+def rabbitmq_pass():
+    return os.getenv('RABBITMQ_PASS')
+
+
 def session_expire() -> int:
     return int(os.getenv('SESSION_EXPIRE', 1800))
 

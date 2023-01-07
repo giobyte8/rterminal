@@ -8,3 +8,19 @@ services:
     restart: unless-stopped
     ports:
       - '6379:6379'
+
+  rabbitmq:
+    image: rabbitmq:3.9.15-management-alpine
+    container_name: rt_rabbit
+    restart: unless-stopped
+    ports:
+      - 5671:5671
+      - 5672:5672
+      - 15671:15671
+      - 15672:15672
+    environment:
+      - 'RABBITMQ_DEFAULT_USER=$RABBITMQ_USER'
+      - 'RABBITMQ_DEFAULT_PASS=$RABBITMQ_PASS'
+    volumes:
+      - ${RABBITMQ_DATA}:/var/lib/rabbitmq
+      - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
