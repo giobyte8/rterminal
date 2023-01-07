@@ -15,7 +15,7 @@ async def start():
     """
 
     try:
-        logger.info('Starting telegram updates listener')
+        logger.info('Listening for telegram updates')
 
         while True:
             updates = await tg_api.get_updates(_highest_rec_update + 1)
