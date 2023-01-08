@@ -8,6 +8,15 @@ class ConversationStatus(Enum):
     # ? Neither user nor bot are waiting for response
     STANDBY = "STANDBY"
 
+class InfraNotifLevel(str, Enum):
+    LOW = 'LOW'
+    MEDIUM = 'MEDIUM'
+    HIGH = 'HIGH'
+
+class InfraNotification(BaseModel):
+    level: InfraNotifLevel
+    message: str
+
 class TGChat(BaseModel):
     id: int
     first_name: str

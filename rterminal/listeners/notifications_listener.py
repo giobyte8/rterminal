@@ -1,8 +1,12 @@
 import asyncio
+import json
 import rterminal.utils.config as cfg
 
 from aio_pika import connect
 from aio_pika.abc import AbstractIncomingMessage
+from pydantic import ValidationError
+from rterminal.entities import InfraNotification
+from rterminal.msg_senders import tg_msg_sender
 from rterminal.utils.rt_logging import logger
 
 
@@ -10,8 +14,21 @@ _QUEUE_INFRA_NOTIF = 'INFRASTRUCTURE_NOTIFICATIONS'
 
 
 async def on_message(msg: AbstractIncomingMessage) -> None:
-    logger.debug(msg)
-    logger.info(msg.body)
+    logger.info('Infrastructure notification received')
+    logger.debug('Infra notif body: %s', msg.body.decode('utf-8'))
+
+    try:
+        j_notif = json.loads(msg.body)
+        notif = InfraNotification(**j_notif)
+
+        await tg_msg_sender.infra_notification(notif)
+    except ValidationError as e:
+        logger.error(e)
+    except json.JSONDecodeError:
+        logger.error(
+            'Received notification is not a valid json: %s',
+            msg.body
+        )
 
     await msg.ack()
 

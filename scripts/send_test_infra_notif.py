@@ -22,7 +22,7 @@ async def main() -> None:
         queue = await channel.declare_queue(_QUEUE_INFRA_NOTIF)
 
         msg = {
-            'level': 'MEDIUM',
+            'level': 'LOW',
             'message': 'This is a test notification 👨🏻‍💻'
         }
 
