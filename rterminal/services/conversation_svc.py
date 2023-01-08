@@ -2,7 +2,8 @@ from typing import List
 from rterminal import tg_api
 from rterminal.commands import (
     notifications_cmd,
-    setup_cmds
+    setup_cmds,
+    server_mgmt_cmds
 )
 from rterminal.entities import (
     ConversationStatus,
@@ -54,6 +55,9 @@ async def on_command(chat: TGChat, command: str, args: List[str]):
 
         if command == 'notifications':
             res_msg = await notifications_cmd.run(chat, args)
+
+        if command == 'ip':
+            res_msg = await server_mgmt_cmds.public_ip(chat)
 
     # Ask for passphrase again
     else:
