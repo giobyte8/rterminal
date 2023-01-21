@@ -5,7 +5,7 @@
 When a new version of rterminal is ready for production, it is released
 as a **multiarch** docker image for portability.
 
-### Prerequisites for development machine
+### Prerequisites for development machine
 
 Below steps are required only the first time that a machine is being used
 to build rterminal docker images.
@@ -44,9 +44,9 @@ docker login
 
 ### Building and releasing image for new version
 
-> Make sure you're using the appropriate docker builder
->   `docker buildx ls`
->   `docker buildx use <builder-name>
+> Make sure you're using the appropriate docker builder <br>
+> - `docker buildx ls`                                  <br>
+> - `docker buildx use <builder-name>`
 
 With the right builder selected and with docker cli logged in to the docker
 registry, run the script to build and push rterminal image.
