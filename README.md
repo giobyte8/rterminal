@@ -15,8 +15,6 @@ A telegram bot to remotely interact with and monitor servers
 ```bash
 wget https://github.com/giobyte8/rterminal/raw/main/docker-compose.yml
 wget https://github.com/giobyte8/rterminal/raw/main/env.template
-
-wget https://github.com/giobyte8/rterminal/raw/main/scripts/hash_pw.py
 ```
 
 ### 2. Prepare your password
@@ -55,6 +53,9 @@ vim .env
 # Enter your own values including hashed password and telegram
 # bot token
 ```
+
+> Pay attention to comment in .env file about how to escape '$' signs
+> in hashed password
 
 ### 5. Run rterminal
 
