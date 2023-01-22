@@ -3,9 +3,6 @@ version: '3.8'
 services:
   rterminal:
     image: giobyte8/rterminal:1.0.2
-    build:
-      context: ..
-      dockerfile: docker/rterminal.dockerfile
     container_name: rterminal
     user: $UID:$GID
     environment:
@@ -25,4 +22,3 @@ services:
       - "LOG_LEVEL=${LOG_LEVEL}"
     volumes:
       - "${RUNTIME_PATH}:/mnt/runtime"
-    command: ["python", "rterminal/main.py"]
