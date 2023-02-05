@@ -1,5 +1,7 @@
+import asyncio
 import rterminal.utils.config as cfg
 from aiohttp import ClientSession
+from aiohttp import client_exceptions as aiohttp_ex
 from rterminal.entities import TGResponseMsg
 from rterminal.utils.rt_logging import logger
 
@@ -30,18 +32,29 @@ async def getMe():
 
 async def get_updates(offset: int):
     # logger.debug('Retrieving updates from telegram API')
-
     p = { 'offset': offset }
-    async with _http().get(f'{ _BASE_URL }/getUpdates', params=p) as res:
-        if res.status == 200:
-            j_res = await res.json()
 
-            if j_res['ok']:
-                return j_res['result']
+    try:
+        async with _http().get(f'{ _BASE_URL }/getUpdates', params=p) as res:
+            if res.status == 200:
+                j_res = await res.json()
+
+                if j_res['ok']:
+                    return j_res['result']
+                else:
+                    logger.error('Telegram error: %s', j_res['description'])
             else:
-                logger.error('Telegram error: %s', j_res['description'])
-        else:
-            logger.error('HTTP error occurred')
+                logger.error('HTTP error occurred')
+    except aiohttp_ex.ClientOSError as e:
+        logger.warn('aiohttp error: %s', e)
+        await asyncio.sleep(3)
+    except Exception as e:
+        logger.error('Error while retrieving telegram updates: %s', e)
+        await asyncio.sleep(3)
+
+    # In case error ocurred, return empty array of updates
+    return []
+
 
 
 async def send_message(msg: TGResponseMsg):
