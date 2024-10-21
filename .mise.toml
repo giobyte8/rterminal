@@ -1,0 +1,9 @@
+[tools]
+python = "3.12" # [optional] will be used for the venv
+
+[env]
+_.python.venv = ".venv" # can be absolute
+
+# Alternative to create env if doesn't exist
+#_.python.venv = { path = ".venv", create = true }
+

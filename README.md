@@ -1,12 +1,18 @@
-# Remote terminal
+# rterminal
 
-A telegram bot to remotely interact with and monitor servers
+Remote terminal (aka rterminal) is a *daemon* that allows task scheduling and
+monitoring of remote hosts.
+
+It integrates pretty well with [central](#central)
 
 ## Features
 
-### Commands
+### Observers
 
-### Monitors
+
+
+
+---
 
 ## Deployment
 
