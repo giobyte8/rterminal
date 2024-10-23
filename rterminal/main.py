@@ -10,9 +10,13 @@ if not __package__ and not hasattr(sys, "frozen"):
     )
     sys.path.insert(0, os.path.realpath(rterminal_root))
 
+from rterminal.background_jobs import runner
 
-async def main():
-    print("RTerminal")
+
+async def main() -> None:
+    await runner.start()
+    while True:
+        await asyncio.sleep(10)
 
 
 if __name__ == '__main__':
