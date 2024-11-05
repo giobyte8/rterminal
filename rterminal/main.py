@@ -10,11 +10,11 @@ if not __package__ and not hasattr(sys, "frozen"):
     )
     sys.path.insert(0, os.path.realpath(rterminal_root))
 
-from rterminal.background_jobs import runner
+from rterminal.actions import actions_svc
 
 
 async def main() -> None:
-    await runner.start()
+    await actions_svc.start()
     while True:
         await asyncio.sleep(10)
 

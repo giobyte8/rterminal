@@ -1,19 +1,19 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .base import Scheduler
-from ..jobs.base import Job
+from ..base import Action
 
 
 class AIOScheduler(Scheduler):
     """Leverages apscheduler 3.x library and asyncio for workers.
-    Jobs live in memory, no persistent storage is used
+    Actions live in memory, no persistent storage is used
     """
 
     def __init__(self):
         self._scheduler = AsyncIOScheduler()
 
-    async def add_job(self, job: Job, every_seconds: int) -> None:
+    async def add(self, action: Action, every_seconds: int) -> None:
         self._scheduler.add_job(
-            job.run,
+            action.run,
             'interval',
             seconds=every_seconds
         )
