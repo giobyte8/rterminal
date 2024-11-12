@@ -20,6 +20,7 @@ def _http() -> ClientSession:
 
 
 async def get_public_ipv4() -> str:
+    # TODO Implement error handling and retry
     async with _http().get(_BASE_URL) as res:
         if res.status == 200:
             ip = await res.text()
