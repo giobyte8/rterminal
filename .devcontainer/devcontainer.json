@@ -2,5 +2,8 @@
 
 {
     "name": "Python 3.12",
-    "image": "mcr.microsoft.com/devcontainers/python:3.12-bookworm"
+    "image": "mcr.microsoft.com/devcontainers/python:3.12-bookworm",
+    "features": {
+        "ghcr.io/nils-geistmann/devcontainers-features/zsh:0": {}
+    }
 }
