@@ -1,14 +1,27 @@
 import pytest
+from aiohttp import (
+    ClientConnectionError,
+    ClientResponseError,
+
+    RequestInfo,
+)
 from rterminal.clients import ipfy_api
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, Mock, patch
 
 
-def mock_http_response(status: int, content: str) -> AsyncMock:
+def mock_http_response(
+        status: int,
+        content: str,
+        m_raise_for_status: Mock = Mock()
+    ) -> AsyncMock:
     """Mocks responses for requests done through aiohttp library
 
     Args:
         status (int): Desired http status for response
-        content (str): Desired text conent for response
+        content (str): Desired text content for response
+
+        m_raise_for_status (Mock): Custom mock for 'raise_for_status' \
+             function which will be invoked upon http response
 
     Returns:
         AsyncMock: A mocked async context manager that can be used \
@@ -20,7 +33,8 @@ def mock_http_response(status: int, content: str) -> AsyncMock:
     # hence, we mock it to return our desired response
     res.__aenter__.return_value = AsyncMock(
         status = status,
-        text = AsyncMock(return_value=content)
+        text = AsyncMock(return_value=content),
+        raise_for_status = m_raise_for_status,
     )
 
     return res
@@ -28,7 +42,7 @@ def mock_http_response(status: int, content: str) -> AsyncMock:
 
 @pytest.mark.asyncio
 @patch('rterminal.clients.ipfy_api._aiohttp_session')
-async def test_get_ipv4_successful(m_http: AsyncMock) -> None:
+async def test_get_ipv4(m_http: AsyncMock) -> None:
     TEST_IP = '123.123.123.123'
     m_res = mock_http_response(
         status=200,
@@ -40,3 +54,6 @@ async def test_get_ipv4_successful(m_http: AsyncMock) -> None:
 
     m_res.__aenter__.assert_awaited_once()
     assert ipv4 == TEST_IP
+
+
+# TODO Write tests for error and retry scenarios
