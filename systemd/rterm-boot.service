@@ -1,0 +1,22 @@
+[Unit]
+Description=RTerminal Boot Task
+After=network-online.target
+Wants=network-online.target
+# Requires=network-online.target
+
+[Service]
+Type=simple
+Restart=no
+StandardOutput=journal
+StandardError=journal
+
+# Use appropriate values for each system
+WorkingDirectory=/Users/giobyte8/src/rterminal
+ExecStart=/usr/bin/env python3 rterminal/tasks/boot.py
+
+# Run as the dedicated user (mandatory for security)
+# User=script-user
+# Group=script-user
+
+[Install]
+WantedBy=multi-user.target

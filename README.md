@@ -35,4 +35,24 @@ python rterminal/tasks/host_status_update.py
 ```
 
 Run through systemd
-...
+
+Customize the systemd service file according to your own env
+```shell
+cp systemd/rterm-boot.service /etc/systemd/system/
+vim /etc/systemd/system/rterm-boot.service
+```
+
+Enable service to be executed during boot
+```shell
+sudo systemctl daemon-reload
+sudo systemctl enable rterm-boot
+
+# Optionally, start the service manually:
+sudo systemctl start rterm-boot
+```
+
+Check service status and logs:
+```shell
+systemctl status rterminal-boot
+journalctl -u rterm-boot
+```
